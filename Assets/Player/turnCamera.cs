@@ -12,6 +12,13 @@ public class turnCamera : MonoBehaviour
     public float mouseDragMultiplier = 300;
     float currentPos;
     public bool lockOnHold = true;
+    [Space]
+    public int zoom = 60;
+    public int normal = 100;
+    public float smooth = 3;
+    private bool isZoomed = false;
+    public Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,22 +43,36 @@ public class turnCamera : MonoBehaviour
             currentPos = cartPos;
             Cursor.visible = true;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q))
         {
-            lerpValue(cartPos, positions[0], speed);
+            cartPos = Mathf.Lerp(cartPos, positions[0], Time.deltaTime * speed);
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            lerpValue(cartPos, positions[1], speed);
+            cartPos = Mathf.Lerp(cartPos, positions[1], Time.deltaTime * speed);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
         {
-            lerpValue(cartPos, positions[2], speed);
+            cartPos = Mathf.Lerp(cartPos, positions[2], Time.deltaTime * speed);
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.R))
         {
-            lerpValue(cartPos, positions[3], speed);
+            cartPos = Mathf.Lerp(cartPos, positions[3], Time.deltaTime * speed);
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            isZoomed = !isZoomed;
+        }
+
+        if (isZoomed)
+        {
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoom, Time.deltaTime * smooth);
+        }
+        else
+        {
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, normal, Time.deltaTime * smooth);
+        }
+
     }
     void lerpValue(float start, float end, float speed)
     {
