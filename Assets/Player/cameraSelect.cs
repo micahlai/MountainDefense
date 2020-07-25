@@ -4,18 +4,19 @@ using UnityEngine;
 public class cameraSelect : MonoBehaviour
 {
     public Camera cam;
-    public GameObject boulder;
-    public GameObject tree;
-    public Vector3 offset;
     public Transform treeRotation;
-    public float treeDestroyTime = 100;
+    public GameObject[] objects;
+    public Vector3[] offset;
+    public float[] objectDestroyTime;
+    [Space]
+    public ObstacleSelection selection;
 
     void Start()
     {
         cam = Camera.main;
     }
     void Update()
-    {
+    { 
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -23,8 +24,7 @@ public class cameraSelect : MonoBehaviour
 
             if(Physics.Raycast(ray, out hit))
             {
-                
-                Destroy(Instantiate(tree, hit.point + offset, treeRotation.rotation), treeDestroyTime);
+                Destroy(Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation), objectDestroyTime[selection.index]);
             }
         }
     }

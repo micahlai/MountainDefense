@@ -13,12 +13,9 @@ public class turnCamera : MonoBehaviour
     float currentPos;
     public bool lockOnHold = true;
     [Space]
-    public int zoom = 60;
-    public int normal = 100;
-    public float smooth = 3;
-    private bool isZoomed = false;
     public Camera cam;
     public float scale;
+    private float mousePos;
 
     // Start is called before the first frame update
     void Start()
@@ -30,28 +27,18 @@ public class turnCamera : MonoBehaviour
     void Update()
     {
         cart.m_Position = cartPos;
-        if (Input.GetMouseButton(1))
-        {
-            float mousePos = Input.mousePosition.x / Screen.width;
-            if(mousePos > 1)
-            {
-                mousePos = 1;
-            }
-            if(mousePos < 0)
-            {
-                mousePos = 0;
-            }
-            cartPos = (mousePos * mouseDragMultiplier) + currentPos;
-            if (lockOnHold)
-            {
-                Cursor.visible = false;
-            }
 
-        }
-        else
+        mousePos = (Input.mousePosition.x / Screen.width);
+
+        if (mousePos > 1)
         {
-            currentPos = cartPos;
-            Cursor.visible = true;
+            mousePos = 1f;
+            cartPos += mouseDragMultiplier * Time.deltaTime;
+        }
+        if (mousePos < 0)
+        {
+            mousePos = 0f;
+            cartPos -= mouseDragMultiplier * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.Q))
         {
@@ -69,10 +56,6 @@ public class turnCamera : MonoBehaviour
         {
            cartPos = positions[3];
         }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //isZoomed = !isZoomed;
-        }
         cam.orthographicSize -= Input.mouseScrollDelta.y * scale;
         if (cam.orthographicSize > 120)
         {
@@ -82,16 +65,6 @@ public class turnCamera : MonoBehaviour
         {
             cam.orthographicSize = 10;
         }
-        /*
-        if (isZoomed)
-        {
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoom, Time.deltaTime * smooth);
-        }
-        else
-        {
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, normal, Time.deltaTime * smooth);
-        }
-        */
 
     }
    
