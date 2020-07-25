@@ -620,14 +620,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cart: {fileID: 480273787}
   cartPos: 0
-  posIndex: 0
   positions:
   - 0
   - 310.151
   - 620.302
   - 930.453
   speed: 100
-  mouseDragMultiplier: 200
+  mouseDragMultiplier: 300
   lockOnHold: 1
 --- !u!1 &483416840
 GameObject:

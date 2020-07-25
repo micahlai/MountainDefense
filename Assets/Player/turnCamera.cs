@@ -7,7 +7,6 @@ public class turnCamera : MonoBehaviour
 {
     public CinemachineDollyCart cart;
     public float cartPos = 0;
-    public int posIndex = 0;
     public float[] positions;
     public float speed = 0.1f;
     public float mouseDragMultiplier = 300;
