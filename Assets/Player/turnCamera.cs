@@ -18,6 +18,7 @@ public class turnCamera : MonoBehaviour
     public float smooth = 3;
     private bool isZoomed = false;
     public Camera cam;
+    private bool isTurning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class turnCamera : MonoBehaviour
         cart.m_Position = cartPos;
         if (Input.GetMouseButton(1))
         {
+            isTurning = false;
             cartPos = (-Input.mousePosition.x / Screen.width * mouseDragMultiplier) + currentPos;
             if (lockOnHold)
             {
@@ -45,19 +47,19 @@ public class turnCamera : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            cartPos = Mathf.Lerp(cartPos, positions[0], Time.deltaTime * speed);
+            StartCoroutine(turnLerp(positions[0], speed));
         }
         if (Input.GetKey(KeyCode.W))
         {
-            cartPos = Mathf.Lerp(cartPos, positions[1], Time.deltaTime * speed);
+            StartCoroutine(turnLerp(positions[1], speed));
         }
         if (Input.GetKey(KeyCode.E))
         {
-            cartPos = Mathf.Lerp(cartPos, positions[2], Time.deltaTime * speed);
+            StartCoroutine(turnLerp(positions[2], speed));
         }
         if (Input.GetKey(KeyCode.R))
         {
-            cartPos = Mathf.Lerp(cartPos, positions[3], Time.deltaTime * speed);
+           StartCoroutine(turnLerp(positions[3], speed));
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -74,15 +76,15 @@ public class turnCamera : MonoBehaviour
         }
 
     }
-    void lerpValue(float start, float end, float speed)
+    IEnumerator turnLerp (float position, float speed)
     {
-        for (float i = 0; i < 100; i += speed * Time.deltaTime)
+        isTurning = true;
+        while(cartPos != position && isTurning)
         {
-           cartPos = Mathf.Lerp(start, end, i / 100);
+            cartPos = Mathf.Lerp(cartPos, position, Time.deltaTime * speed);
         }
-        
-
-        
+        isTurning = false;
+        yield return null;
     }
    
 }
