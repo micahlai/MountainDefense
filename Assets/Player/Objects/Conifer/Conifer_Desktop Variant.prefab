@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!136 &6049751376254757589
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572710288594436025}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 21
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 10, z: 0}
+--- !u!208 &1293584116
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572710288594436025}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 20, y: 2.855, z: 20}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 10, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!1001 &8572710288594336009
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_Name
+      value: Conifer_Desktop Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_TagString
+      value: Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 266.08734
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 75.82239
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 256.80533
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 61c708293dbba0f459c0b9526ee3e1d7, type: 3}
+--- !u!1 &8572710288594436025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100016, guid: 61c708293dbba0f459c0b9526ee3e1d7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8572710288594336009}
+  m_PrefabAsset: {fileID: 0}

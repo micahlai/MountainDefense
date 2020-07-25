@@ -28,5 +28,13 @@ public class AI : MonoBehaviour
         {
             Debug.Log("End");
         }
+        if (other.gameObject.CompareTag("Tree"))
+        {
+            Destroy(this);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }

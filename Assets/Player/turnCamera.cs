@@ -18,7 +18,7 @@ public class turnCamera : MonoBehaviour
     public float smooth = 3;
     private bool isZoomed = false;
     public Camera cam;
-    private bool isTurning = false;
+    public float scale;
 
     // Start is called before the first frame update
     void Start()
@@ -32,8 +32,16 @@ public class turnCamera : MonoBehaviour
         cart.m_Position = cartPos;
         if (Input.GetMouseButton(1))
         {
-            isTurning = false;
-            cartPos = (-Input.mousePosition.x / Screen.width * mouseDragMultiplier) + currentPos;
+            float mousePos = Input.mousePosition.x / Screen.width;
+            if(mousePos > 1)
+            {
+                mousePos = 1;
+            }
+            if(mousePos < 0)
+            {
+                mousePos = 0;
+            }
+            cartPos = (mousePos * mouseDragMultiplier) + currentPos;
             if (lockOnHold)
             {
                 Cursor.visible = false;
@@ -47,25 +55,34 @@ public class turnCamera : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            StartCoroutine(turnLerp(positions[0], speed));
+            cartPos = positions[0];
         }
         if (Input.GetKey(KeyCode.W))
         {
-            StartCoroutine(turnLerp(positions[1], speed));
+            cartPos = positions[1];
         }
         if (Input.GetKey(KeyCode.E))
         {
-            StartCoroutine(turnLerp(positions[2], speed));
+            cartPos = positions[2];
         }
         if (Input.GetKey(KeyCode.R))
         {
-           StartCoroutine(turnLerp(positions[3], speed));
+           cartPos = positions[3];
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            isZoomed = !isZoomed;
+            //isZoomed = !isZoomed;
         }
-
+        cam.orthographicSize -= Input.mouseScrollDelta.y * scale;
+        if (cam.orthographicSize > 120)
+        {
+            cam.orthographicSize = 120;
+        }
+        if (cam.orthographicSize < 10)
+        {
+            cam.orthographicSize = 10;
+        }
+        /*
         if (isZoomed)
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoom, Time.deltaTime * smooth);
@@ -74,17 +91,9 @@ public class turnCamera : MonoBehaviour
         {
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, normal, Time.deltaTime * smooth);
         }
+        */
 
     }
-    IEnumerator turnLerp (float position, float speed)
-    {
-        isTurning = true;
-        while(cartPos != position && isTurning)
-        {
-            cartPos = Mathf.Lerp(cartPos, position, Time.deltaTime * speed);
-        }
-        isTurning = false;
-        yield return null;
-    }
+   
    
 }

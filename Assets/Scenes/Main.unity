@@ -404,6 +404,36 @@ Transform:
   m_Father: {fileID: 64714285}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &467194567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467194568}
+  m_Layer: 0
+  m_Name: TreeRotation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &467194568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467194567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 299.74054, y: 2.039856, z: 221.71463}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480273786
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +510,7 @@ MonoBehaviour:
   normal: 100
   smooth: 3
   cam: {fileID: 1365514941}
+  scale: 3
 --- !u!1 &483416840
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +898,7 @@ GameObject:
   - component: {fileID: 1365514942}
   - component: {fileID: 1365514941}
   - component: {fileID: 1365514944}
+  - component: {fileID: 1365514945}
   - component: {fileID: 1365514940}
   - component: {fileID: 1365514943}
   m_Layer: 0
@@ -1014,6 +1046,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 867724727}
+--- !u!114 &1365514945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365514939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9838cc11fd684ba4ba9f26c69f9c0420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1365514941}
+  boulder: {fileID: 6798102563189678478, guid: ea02ba6ef59907743ae3bebf1ca4ebeb, type: 3}
+  tree: {fileID: 8572710288594436025, guid: bf980500f92d3be499f1b683a66e15a0, type: 3}
+  offset: {x: 0, y: 0, z: 0}
+  treeRotation: {fileID: 467194568}
+  treeDestroyTime: 10
 --- !u!1 &1367978148
 GameObject:
   m_ObjectHideFlags: 0
