@@ -473,9 +473,13 @@ MonoBehaviour:
   - 310.151
   - 620.302
   - 930.453
-  speed: 100
+  speed: 3
   mouseDragMultiplier: 300
   lockOnHold: 1
+  zoom: 60
+  normal: 100
+  smooth: 3
+  cam: {fileID: 1365514941}
 --- !u!1 &483416840
 GameObject:
   m_ObjectHideFlags: 0
