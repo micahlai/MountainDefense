@@ -118,7 +118,7 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.76
+    value: 0.68
   contrast:
     overrideState: 0
     value: 0
@@ -1394,10 +1394,10 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 0.5
+    value: 0.47
   aperture:
     overrideState: 1
-    value: 32
+    value: 29
   focalLength:
     overrideState: 0
     value: 50
@@ -1425,21 +1425,21 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 0, g: 0, b: 0, a: 1}
+    value: {r: 1, g: 1, b: 1, a: 1}
   center:
     overrideState: 0
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.444
+    value: 0.411
   smoothness:
-    overrideState: 1
-    value: 0.196
+    overrideState: 0
+    value: 0.2
   roundness:
-    overrideState: 1
+    overrideState: 0
     value: 1
   rounded:
-    overrideState: 1
+    overrideState: 0
     value: 0
   mask:
     overrideState: 0
@@ -1465,8 +1465,8 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   shutterAngle:
-    overrideState: 1
-    value: 300
+    overrideState: 0
+    value: 270
   sampleCount:
     overrideState: 0
     value: 10

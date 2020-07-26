@@ -34,6 +34,7 @@ public class cameraSelect : MonoBehaviour
                 }
             }else if (selection.index == 2 || selection.index == 3)
             {
+<<<<<<< HEAD
                 if(selection.index == 2)
                 {
                     rain.toggleParticle(true);
@@ -42,6 +43,10 @@ public class cameraSelect : MonoBehaviour
                 {
                     thunder.toggleParticle(true);
                 }
+=======
+                Destroy(Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation));
+                Debug.DrawLine(transform.position, hit.point);
+>>>>>>> parent of 75e8831... Environment Changes
             }
         }
     }

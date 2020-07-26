@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 7141538905746871221}
   - component: {fileID: 7141538905746871217}
   - component: {fileID: 7141538905746871218}
-  - component: {fileID: 8599393728981179997}
-  - component: {fileID: 3644628717774826185}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -52,8 +50,6 @@ MonoBehaviour:
   maxSpeed: 10
   minSpeed: 1
   speed: 0
-  deathParticle: {fileID: 403281139958204258, guid: 35ded81b28ed91f48ba6c5ca991ff2de,
-    type: 3}
 --- !u!195 &7141538905746871221
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -63,7 +59,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7141538905746871222}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -123,29 +119,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8599393728981179997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7141538905746871222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ec8427b2f00f64e8481d0e6306de48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!136 &3644628717774826185
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7141538905746871222}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

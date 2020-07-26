@@ -10,8 +10,6 @@ public class AI : MonoBehaviour
     public float maxSpeed = 10;
     public float minSpeed = 1;
     public float speed;
-    public GameObject death;
-    public GameObject clone;
     //public ThirdPersonCharacter character;
 
 
@@ -23,14 +21,10 @@ public class AI : MonoBehaviour
         nav.speed = speed;
         target = GameObject.Find("End");
         nav.SetDestination(target.transform.position);
-        death = GameObject.Find("Death");
-        clone = Instantiate(death);
-        clone.SetActive(false);
     }
 
     void Update()
     {
-        clone.transform.position = transform.position;
         /*
         if (nav.remainingDistance > nav.stoppingDistance)
         {
@@ -47,22 +41,15 @@ public class AI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Finish"))
         {
-            die();
+            Debug.Log("End");
         }
         if (other.gameObject.CompareTag("Tree"))
         {
-            die();
-        }
-        if (other.gameObject.CompareTag("Rock"))
-        {
-            die();
-
+            Destroy(this);
         }
     }
-    public void die()
+    private void OnCollisionEnter(Collision collision)
     {
-        clone.SetActive(true);
-        clone.GetComponent<destroyAfterTime>().ObjectDestroy(5);
-        Destroy(this.gameObject);
+        
     }
 }
