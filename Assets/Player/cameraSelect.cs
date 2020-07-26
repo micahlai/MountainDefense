@@ -23,7 +23,7 @@ public class cameraSelect : MonoBehaviour
 
             if(Physics.Raycast(ray, out hit))
             {
-                Destroy(Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation));
+                Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
                 Debug.DrawLine(transform.position, hit.point);
             }
         }
