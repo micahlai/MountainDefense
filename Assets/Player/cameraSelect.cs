@@ -9,8 +9,6 @@ public class cameraSelect : MonoBehaviour
     public Vector3[] offset;
     [Space]
     public ObstacleSelection selection;
-    public startStopParticle thunder;
-    public startStopParticle rain;
 
     void Start()
     {
@@ -20,20 +18,12 @@ public class cameraSelect : MonoBehaviour
     { 
         if (Input.GetMouseButtonDown(0))
         {
-            if (selection.index == 0 || selection.index == 1)
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit))
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-
-                    Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
-                    Debug.DrawLine(transform.position, hit.point);
-
-                }
-            }else if (selection.index == 2 || selection.index == 3)
-            {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 if(selection.index == 2)
                 {
@@ -47,6 +37,10 @@ public class cameraSelect : MonoBehaviour
                 Destroy(Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation));
                 Debug.DrawLine(transform.position, hit.point);
 >>>>>>> parent of 75e8831... Environment Changes
+=======
+                Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
+                Debug.DrawLine(transform.position, hit.point);
+>>>>>>> parent of 447c230... Rain and Thunder
             }
         }
     }
