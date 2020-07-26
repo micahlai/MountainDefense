@@ -25,6 +25,7 @@ public class cameraSelect : MonoBehaviour
             {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if(selection.index == 2)
                 {
                     rain.toggleParticle(true);
@@ -37,6 +38,10 @@ public class cameraSelect : MonoBehaviour
                 Destroy(Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation));
                 Debug.DrawLine(transform.position, hit.point);
 >>>>>>> parent of 75e8831... Environment Changes
+=======
+                Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
+                Debug.DrawLine(transform.position, hit.point);
+>>>>>>> parent of 447c230... Rain and Thunder
 =======
                 Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
                 Debug.DrawLine(transform.position, hit.point);
