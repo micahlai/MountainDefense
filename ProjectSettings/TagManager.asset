@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Tree
   - Enemy
+  - Destroy
+  - Rock
+  - Level
+  - Peak
   layers:
   - Default
   - TransparentFX

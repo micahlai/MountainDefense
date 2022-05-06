@@ -8,6 +8,9 @@ public class ObstacleSelection : MonoBehaviour
     public int index;
     public Vector2[] selectionPositions;
     public RectTransform selection;
+    public Image[] fillImages;
+    public Text[] percentages;
+    public float[] status;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,14 +38,23 @@ public class ObstacleSelection : MonoBehaviour
         {
             index = 3;
         }
+
+        index += Mathf.RoundToInt(Input.mouseScrollDelta.y);
+        index = Mathf.Clamp(index, 0, 3);
+        
+        for (int i = 0; i < percentages.Length; i++)
+        {
+            percentages[i].text = Mathf.RoundToInt(status[i]).ToString() + "%";
+            fillImages[i].fillAmount = status[i] / 100;
+        }
     }
     IEnumerator Move(RectTransform rt, Vector2 targetPos)
     {
         float step = 0;
         while (step < 1)
         {
-            rt.offsetMin = Vector2.Lerp(rt.offsetMin, targetPos, step += Time.deltaTime * 2);
-            rt.offsetMax = Vector2.Lerp(rt.offsetMax, targetPos, step += Time.deltaTime * 2);
+            rt.offsetMin = Vector2.Lerp(rt.offsetMin, targetPos, step += Time.deltaTime * 3);
+            rt.offsetMax = Vector2.Lerp(rt.offsetMax, targetPos, step += Time.deltaTime * 3);
             yield return new WaitForEndOfFrame();
         }
     }
