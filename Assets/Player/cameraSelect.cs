@@ -63,7 +63,11 @@ public class cameraSelect : MonoBehaviour
                     {
                         if (usage[selection.index] >= cooldowns[selection.index])
                         {
-                            Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
+                            GameObject g = Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
+                            if(g.GetComponent<Tree>() != null)
+                            {
+                                g.GetComponent<Tree>().point = hit.point;
+                            }
                             Debug.DrawLine(transform.position, hit.point);
                             usage[selection.index] = 0;
                         }

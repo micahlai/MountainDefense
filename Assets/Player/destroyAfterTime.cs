@@ -37,4 +37,9 @@ public class destroyAfterTime : MonoBehaviour
     {
         Destroy(gameObject, time);
     }
+    public void ObjectDestroyWithEvent(float time)
+    {
+        destroyOverTime = true;
+        TimeAlive = lastingTime - eventTimeOffset - time;
+    }
 }
