@@ -39,12 +39,12 @@ public class turnCamera : MonoBehaviour
 
         mousePos = (Input.mousePosition.x / Screen.width);
 
-        if (mousePos > 1)
+        if (mousePos > 1 || Input.GetKey(KeyCode.D))
         {
             mousePos = 1f;
             cartPos += mouseDragMultiplier * Time.deltaTime;
         }
-        if (mousePos < 0)
+        if (mousePos < 0 || Input.GetKey(KeyCode.A))
         {
             mousePos = 0f;
             cartPos -= mouseDragMultiplier * Time.deltaTime;

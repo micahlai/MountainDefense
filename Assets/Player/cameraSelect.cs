@@ -4,7 +4,6 @@ using UnityEngine;
 public class cameraSelect : MonoBehaviour
 {
     public Camera cam;
-    public Transform treeRotation;
     public GameObject[] objects;
     public float[] cooldowns;
     public float[] usage;
@@ -51,7 +50,7 @@ public class cameraSelect : MonoBehaviour
                     {
                         if (usage[selection.index] >= cooldowns[selection.index])
                         {
-                            Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
+                            Instantiate(objects[selection.index], hit.point + offset[selection.index], Quaternion.identity);
                             Debug.DrawLine(transform.position, hit.point);
                             usage[selection.index] = 0;
                         }
@@ -63,7 +62,7 @@ public class cameraSelect : MonoBehaviour
                     {
                         if (usage[selection.index] >= cooldowns[selection.index])
                         {
-                            GameObject g = Instantiate(objects[selection.index], hit.point + offset[selection.index], treeRotation.rotation);
+                            GameObject g = Instantiate(objects[selection.index], hit.point + offset[selection.index], Quaternion.identity);
                             if(g.GetComponent<Tree>() != null)
                             {
                                 g.GetComponent<Tree>().point = hit.point;

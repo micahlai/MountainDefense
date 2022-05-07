@@ -7,7 +7,7 @@ public class playNoise : MonoBehaviour
     public AudioManager manager;
     private void Start()
     {
-        manager = GetComponent<AudioManager>();
+        manager = FindObjectOfType<AudioManager>();
     }
     public void playSound(string sound)
     {

@@ -28,6 +28,14 @@ public class Load : MonoBehaviour
         }
         StartCoroutine(transition(scene));
     }
+    public void reloadScene()
+    {
+        if (pause != null)
+        {
+            pause.boolPause(false);
+        }
+        StartCoroutine(transition(SceneManager.GetActiveScene().buildIndex));
+    }
     IEnumerator transition(int scene)
     {
         image.SetActive(true);

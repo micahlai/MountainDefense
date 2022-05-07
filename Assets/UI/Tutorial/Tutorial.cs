@@ -12,6 +12,8 @@ public class Tutorial : MonoBehaviour
     [Space]
     public EnemySpawner spawner;
     public Load loader;
+
+    bool newSlide = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,20 +24,32 @@ public class Tutorial : MonoBehaviour
     void Update()
     {
         text.text = messages[tutorialIndex];
-        if (tutorialIndex == 5)
+        if (tutorialIndex == 6 && newSlide)
         {
             spawner.canSpawn = true;
+            newSlide = false;
         }
-        if (tutorialIndex == 12)
+        if (tutorialIndex == 7 && newSlide)
+        {
+
+            for (int i = 0; i < 4; i++)
+            {
+                spawner.SpawnEnemyOnPoint(0);
+                newSlide = false;
+            }
+        }
+        if (tutorialIndex == 15 && newSlide)
         {
             anim.SetTrigger("Fade");
             StartCoroutine(waitAndLoad(1));
+            newSlide = false;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (tutorialIndex < 12)
+            if (tutorialIndex < 15)
             {
                 tutorialIndex++;
+                newSlide = true;
             }
         }
 
