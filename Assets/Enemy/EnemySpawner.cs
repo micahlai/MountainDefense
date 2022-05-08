@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (score != null)  
         {
-            spawnRate = score.scoreNum * 2 + 5;
+            spawnRate = (score.scoreNum + 1) * 2 + 5;
         }
         else
         {

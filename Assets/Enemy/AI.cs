@@ -33,7 +33,10 @@ public class AI : MonoBehaviour
         normalSpeed = speed;
         
     }
-
+    private void Start()
+    {
+        nav.updateRotation = false;
+    }
     void Update()
     {
         if (rain.isRunning || thunder.isRunning)
@@ -61,6 +64,10 @@ public class AI : MonoBehaviour
             }
             
         }
+        Quaternion q = Quaternion.LookRotation(nav.velocity.normalized);
+        q.x = 0;
+        q.z = 0;
+        transform.rotation = Quaternion.Lerp(transform.rotation, q, Time.fixedDeltaTime * 2);
 
 
     }

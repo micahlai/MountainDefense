@@ -19,7 +19,7 @@ public class scoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreNum = 1;
+        scoreNum = 0;
         startingColor = new Color(scoreMultiplier.color.r, scoreMultiplier.color.g, scoreMultiplier.color.b, 0);
         scoreMultiplier.text = "";
         scoreMultiplier.color = startingColor;
@@ -28,8 +28,8 @@ public class scoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        score.text = (scoreNum - 1).ToString();
-        scoreDead.text = "Your Score: " + (scoreNum - 1).ToString();
+        score.text = scoreNum.ToString();
+        scoreDead.text = "Your Score: " + scoreNum.ToString();
 
         additionalSize = Mathf.Lerp(additionalSize, 0, Time.deltaTime);
         scoreMultiplier.rectTransform.sizeDelta = new Vector2(scoreMultiplier.rectTransform.sizeDelta.x, 5 + additionalSize);

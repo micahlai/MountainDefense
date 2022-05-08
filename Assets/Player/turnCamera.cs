@@ -12,7 +12,7 @@ public class turnCamera : MonoBehaviour
     public float speed = 0.1f;
     public float mouseDragMultiplier = 300;
     float currentPos;
-    public bool lockOnHold = true;
+    public bool lockOnHold = true;  
     [Space]
     public Camera cam;
     public float scale;
@@ -21,6 +21,7 @@ public class turnCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         cart.m_Position = cartPos;
     }
 
@@ -39,12 +40,12 @@ public class turnCamera : MonoBehaviour
 
         mousePos = (Input.mousePosition.x / Screen.width);
 
-        if (mousePos > 1 || Input.GetKey(KeyCode.D))
+        if (mousePos > 0.98 || Input.GetKey(KeyCode.D))
         {
             mousePos = 1f;
             cartPos += mouseDragMultiplier * Time.deltaTime;
         }
-        if (mousePos < 0 || Input.GetKey(KeyCode.A))
+        if (mousePos < 0.02 || Input.GetKey(KeyCode.A))
         {
             mousePos = 0f;
             cartPos -= mouseDragMultiplier * Time.deltaTime;

@@ -47,6 +47,8 @@ public class endScript : MonoBehaviour
         select.canPlace = false;
         cameraTarget.target = enemy.transform;
         zoom = true;
-        
+
+        LeaderboardController.main.SendScore();
+
     }
 }

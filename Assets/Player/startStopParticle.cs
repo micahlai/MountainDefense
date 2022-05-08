@@ -16,15 +16,18 @@ public class startStopParticle : MonoBehaviour
     float volume = 0;
     public bool isThunder;
 
+    public float reflectGround;
+    ReflectionMaster rm;
      
 
     void Start()
     { 
         toggleParticle(false);
         manager = FindObjectOfType<AudioManager>();
+        rm = FindObjectOfType<ReflectionMaster>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isRunning)
         {
@@ -44,7 +47,9 @@ public class startStopParticle : MonoBehaviour
         {
             manager.setVolume("Rain2", volume);
         }
-        
+
+
+        rm.reflectivness = Mathf.Lerp(rm.reflectivness, reflectGround, Time.deltaTime / 10f);
         
         
     }
@@ -63,7 +68,7 @@ public class startStopParticle : MonoBehaviour
                 particle3.Play();
             }
             targetVolume = 1;
-
+            reflectGround = 1;
         }
         else
         {
@@ -75,6 +80,7 @@ public class startStopParticle : MonoBehaviour
                 particle3.Stop();
             }
             targetVolume = 0;
+            reflectGround = 0;
         }
     }
 
