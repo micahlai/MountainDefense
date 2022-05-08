@@ -42,13 +42,21 @@ public class endScript : MonoBehaviour
     }
     public void finish(GameObject enemy)
     {
-        spawner.canSpawn = false;
-        pause.canPause = false;
-        select.canPlace = false;
-        cameraTarget.target = enemy.transform;
-        zoom = true;
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            spawner.canSpawn = false;
+            pause.canPause = false;
+            select.canPlace = false;
+            cameraTarget.target = enemy.transform;
+            zoom = true;
 
-        LeaderboardController.main.SendScore();
+            LeaderboardController.main.SendScore();
+        }
+        else
+        {
+            FindObjectOfType<Tutorial>().Leak();
+            enemy.GetComponent<AI>().die();
+        }
 
     }
 }

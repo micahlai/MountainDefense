@@ -13,11 +13,15 @@ public class Tutorial : MonoBehaviour
     public EnemySpawner spawner;
     public Load loader;
 
+    public Text leakText;
+     float leakTextOpacity;
+
     bool newSlide = false;
     // Start is called before the first frame update
     void Start()
     {
         spawner.canSpawn = false;
+        leakTextOpacity = 0f;
     }
 
     // Update is called once per frame
@@ -53,11 +57,19 @@ public class Tutorial : MonoBehaviour
             }
         }
 
+        leakTextOpacity = Mathf.Lerp(leakTextOpacity, 0, Time.fixedDeltaTime);
+
+        leakText.color = new Color(1, 1, 1, leakTextOpacity);
     }
     
     IEnumerator waitAndLoad(float time)
     {
         yield return new WaitForSeconds(time);
         loader.loadScene(0);
+    }
+
+    public void Leak()
+    {
+        leakTextOpacity = 1f;
     }
 }
