@@ -57,7 +57,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Select
     clip: {fileID: 8300000, guid: 5f39d0786f388a4479a18033d5d03d15, type: 3}
-    volume: 1
+    volume: 0.516
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
