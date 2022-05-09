@@ -9,6 +9,8 @@ public class PlayfabManager : MonoBehaviour
     public GameObject nameWindow;
     public bool hasName = false;
 
+    public string displayName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,9 +53,11 @@ public class PlayfabManager : MonoBehaviour
         };
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnError);
     }
+    
 
     void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
     {
+        displayName = result.DisplayName;
         Debug.Log("Updated display name");
     }
 
