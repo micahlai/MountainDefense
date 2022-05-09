@@ -76,4 +76,8 @@ public class LeaderboardUI : MonoBehaviour
             errorText.text = "Player name cannot be empty";
         }
     }
+    public void UpdateInputField()
+    {
+        nameEnter.text = FindObjectOfType<PlayfabManager>().displayName;
+    }
 }
