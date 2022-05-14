@@ -17,34 +17,48 @@ public class EnemySpawner : MonoBehaviour
     public float maxSpeed = 1.3f;
     public float maxScaleFactor = 1.5f;
     public float normalScale = 2;
-    
 
 
     // Start is called before the first frame update
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
-        if (score != null)  
-        {
-            spawnRate = (score.scoreNum + 1) * 2 + 5;
-        }
-        else
-        {
-            spawnRate = 15;
-        }
-        if (canSpawn && !GameObject.Find("Rain").GetComponent<startStopParticle>().isRunning)
-        {
-            time += Time.deltaTime * spawnRate;
-        }
-        if (time >= 100 && canSpawn && !GameObject.Find("Rain").GetComponent<startStopParticle>().isRunning)
-        {
-            SpawnEnemy();
-
-            time = 0;
-
-        }
+        StartCoroutine(spawnEnemy());
     }
+
+    private void Update()
+    {
+        
+        
+    }
+
+    IEnumerator spawnEnemy()
+    {
+        while (true)
+        {
+            
+                float secondsInBetween = 0;
+                if(score != null)
+                {
+                    secondsInBetween = 1 / (Mathf.Log10((score.scoreNum + 100) / 100) * 50 + 1);
+                }
+                else
+                {
+                    secondsInBetween = 0.2f;
+                }
+                
+            if (canSpawn && !GameObject.Find("Rain").GetComponent<startStopParticle>().isRunning)
+            {
+                SpawnEnemy();
+            }
+                yield return new WaitForSeconds(secondsInBetween);
+            
+
+        }
+        yield return null;
+    }
+
     public void SpawnEnemyOnPoint(int spawnPoint)
     {
         Transform s = spawners[spawnPoint];

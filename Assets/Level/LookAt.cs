@@ -6,7 +6,7 @@ public class LookAt : MonoBehaviour
 {
     public Transform target;
     Vector3 targetV3;
-    
+
 
     void Update()
     {
@@ -15,5 +15,6 @@ public class LookAt : MonoBehaviour
             targetV3 = target.position;
         }
         gameObject.transform.LookAt(targetV3);
+        
     }
 }

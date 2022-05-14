@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using System.Runtime;
 
 public class PlayfabManager : MonoBehaviour
 {
     public GameObject nameWindow;
     public bool hasName = false;
+
+    public bool createNewId = false;
 
     public string displayName;
 
@@ -17,18 +20,42 @@ public class PlayfabManager : MonoBehaviour
         Login();
         DontDestroyOnLoad(this.gameObject);
     }
+    private void Update()
+    {
+        if(nameWindow == null)
+        {
+            nameWindow = GameObject.Find("NameWindow");
+        }
+    }
     void Login()
     {
-        var request = new LoginWithCustomIDRequest
+        if (!createNewId)
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true,
-            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+            var request = new LoginWithCustomIDRequest
             {
-                GetPlayerProfile = true
-            }
-        };
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
+                CustomId = SystemInfo.deviceUniqueIdentifier,
+                CreateAccount = true,
+                InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+                {
+                    GetPlayerProfile = true
+                }
+            };
+            PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
+        }
+        else
+        {
+            var request = new LoginWithCustomIDRequest
+            {
+                CustomId = System.Guid.NewGuid().ToString(),
+                CreateAccount = true,
+                InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+                {
+                    GetPlayerProfile = true
+                }
+            };
+            PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
+        }
+        
     }
 
     void OnLoginSuccess(LoginResult result)
@@ -65,6 +92,11 @@ public class PlayfabManager : MonoBehaviour
     {
         Debug.LogWarning("Error while logging in");
         Debug.LogWarning(error.GenerateErrorReport());
+
+        if(FindObjectOfType<LeaderboardUI>() != null)
+        {
+            FindObjectOfType<LeaderboardUI>().NoConnection();
+        }
     }
     public void SendLeaderboard(int score)
     {

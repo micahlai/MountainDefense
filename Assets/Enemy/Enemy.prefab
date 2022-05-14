@@ -326,6 +326,7 @@ MonoBehaviour:
   score: {fileID: 0}
   end: {fileID: 0}
   slowDown: {fileID: 2157917388765699594}
+  additionalBodyParts: []
 --- !u!195 &7141538905746871221
 NavMeshAgent:
   m_ObjectHideFlags: 0

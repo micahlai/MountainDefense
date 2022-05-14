@@ -28,7 +28,7 @@ public class turnCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cartPos > 1)
+        if (cartPos > 1)
         {
             cartPos = 0;
         }

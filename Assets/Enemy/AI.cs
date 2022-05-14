@@ -17,8 +17,13 @@ public class AI : MonoBehaviour
     public scoreManager score;
     public endScript end;
     public GameObject slowDown;
+
+    bool canDie;
+    float TimeToDeath;
+    bool startDeathCountdown;
     //public ThirdPersonCharacter character;
 
+    Quaternion q;
 
     void Awake()
     {
@@ -36,6 +41,8 @@ public class AI : MonoBehaviour
     private void Start()
     {
         nav.updateRotation = false;
+        canDie = true;
+        startDeathCountdown = false;
     }
     void Update()
     {
@@ -49,10 +56,6 @@ public class AI : MonoBehaviour
             speed = normalSpeed;
             slowDown.SetActive(false);
         }
-        if (thunder.isRunning)
-        {
-            StartCoroutine(waitAndDie(3));
-        }
 
         nav.speed = speed * speedMultiplier;
        if(Vector3.Distance(transform.position, target.transform.position) < 7)
@@ -64,10 +67,29 @@ public class AI : MonoBehaviour
             }
             
         }
-        Quaternion q = Quaternion.LookRotation(nav.velocity.normalized);
-        q.x = 0;
-        q.z = 0;
+        if (nav.velocity.normalized != Vector3.zero)
+        {
+            q = Quaternion.LookRotation(nav.velocity.normalized);
+            q.x = 0;
+            q.z = 0;
+        }
         transform.rotation = Quaternion.Lerp(transform.rotation, q, Time.fixedDeltaTime * 2);
+
+        if(canDie && thunder.isRunning)
+        {
+            TimeToDeath = Random.Range(0.1f, 4f);
+            startDeathCountdown = true;
+            canDie = false;
+        }
+
+        if (startDeathCountdown)
+        {
+            TimeToDeath -= Time.deltaTime;
+            if(TimeToDeath <= 0)
+            {
+                die();
+            }
+        }
 
 
     }
@@ -94,19 +116,16 @@ public class AI : MonoBehaviour
     }
     public void die(int multiplier = 1)
     {
+        canDie = false;
         ParticleSystem ps = Instantiate(death, transform.position, transform.rotation).GetComponent<ParticleSystem>();
         ps.startColor = GetComponent<Renderer>().material.color;
+
+        FindObjectOfType<AudioManager>().Play("Kill");
 
         if (score != null)
         {
             score.scoreNum += 1 * multiplier;
         }
         Destroy(this.gameObject);
-    }
-    IEnumerator waitAndDie(int time)
-    {
-        yield return new WaitForSeconds(time);
-        die();
-
     }
 }

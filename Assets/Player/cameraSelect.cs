@@ -13,6 +13,8 @@ public class cameraSelect : MonoBehaviour
     public startStopParticle thunder;
     public startStopParticle rain;
     public bool canPlace = true;
+    
+    public GameObject treePreview;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class cameraSelect : MonoBehaviour
             
             usage[i] = cooldowns[i];
         }
+        treePreview.SetActive(false);
     }
     void Update()
     {
@@ -37,7 +40,50 @@ public class cameraSelect : MonoBehaviour
             }
             selection.status[i] = (usage[i] / cooldowns[i])*100;
         }
+
+        //Preview
+        if (canPlace)
+        {
+            Ray rayPrev = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitPrev;
+            
+            if (selection.index == 1)
+            {
+                if (Physics.Raycast(rayPrev, out hitPrev) && (hitPrev.transform.tag == "Level" || hitPrev.transform.tag == "Enemy"))
+                {
+                    if (usage[selection.index] >= cooldowns[selection.index])
+                    {
+                        Debug.DrawLine(transform.position, hitPrev.point, Color.white);
+                        treePreview.SetActive(true);
+                        treePreview.transform.LookAt(gameObject.transform);
+                        treePreview.transform.position = hitPrev.point;
+                        treePreview.transform.rotation = new Quaternion(0,treePreview.transform.rotation.y,0,treePreview.transform.rotation.w);
+                    }
+                    else
+                    {
+                        treePreview.SetActive(false);
+                    }
+                }
+                else
+                {
+                    treePreview.SetActive(false);
+                }
+            }
+            else
+            {
+                treePreview.SetActive(false);
+            }
+        }
+        else
+        {
+            treePreview.SetActive(false);
+        }
         
+
+        
+        
+
+
         if (Input.GetMouseButtonDown(0) && canPlace)
         {
             if (selection.index == 0 || selection.index == 1)
@@ -51,7 +97,7 @@ public class cameraSelect : MonoBehaviour
                         if (usage[selection.index] >= cooldowns[selection.index])
                         {
                             Instantiate(objects[selection.index], hit.point + offset[selection.index], Quaternion.identity);
-                            Debug.DrawLine(transform.position, hit.point);
+                            Debug.DrawLine(transform.position, hit.point, Color.red);
                             usage[selection.index] = 0;
                         }
                     }
@@ -67,7 +113,7 @@ public class cameraSelect : MonoBehaviour
                             {
                                 g.GetComponent<Tree>().point = hit.point;
                             }
-                            Debug.DrawLine(transform.position, hit.point);
+                            Debug.DrawLine(transform.position, hit.point, Color.red);
                             usage[selection.index] = 0;
                         }
                     }
@@ -84,6 +130,8 @@ public class cameraSelect : MonoBehaviour
                 {
                     thunder.toggleParticle(true);
                     usage[3] = 0;
+                    
+
                 }
             }
         }

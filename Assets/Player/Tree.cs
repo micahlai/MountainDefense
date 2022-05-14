@@ -18,6 +18,15 @@ public class Tree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!GameObject.Find("Rain").GetComponent<startStopParticle>().isRunning)
+        {
+            anim.SetFloat("GrowSpeed", 1f);
+        }
+        else
+        {
+            anim.SetFloat("GrowSpeed", 3f);
+        }
+
         int treeIndex = Random.Range(0, treeModels.Length);
 
         GameObject gb = Instantiate(treeModels[treeIndex], modelParent.transform);

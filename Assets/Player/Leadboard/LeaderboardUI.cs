@@ -16,6 +16,8 @@ public class LeaderboardUI : MonoBehaviour
     public InputField nameEnter;
     public GameObject nameEnterPanel;
     public Text errorText;
+
+    public Image noConnection;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,5 +81,9 @@ public class LeaderboardUI : MonoBehaviour
     public void UpdateInputField()
     {
         nameEnter.text = FindObjectOfType<PlayfabManager>().displayName;
+    }
+    public void NoConnection()
+    {
+        noConnection.gameObject.SetActive(true);
     }
 }
