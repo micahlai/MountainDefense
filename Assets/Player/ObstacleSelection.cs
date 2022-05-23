@@ -24,19 +24,19 @@ public class ObstacleSelection : MonoBehaviour
         selection.sizeDelta = new Vector2(55, 55);
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            index = 0;
+            Select(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            index = 1;
+            Select(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            index = 2;
+            Select(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            index = 3;
+            Select(3);
         }
 
         index += Mathf.RoundToInt(Input.mouseScrollDelta.y);
@@ -57,5 +57,9 @@ public class ObstacleSelection : MonoBehaviour
             rt.offsetMax = Vector2.Lerp(rt.offsetMax, targetPos, step += Time.deltaTime * 3);
             yield return new WaitForEndOfFrame();
         }
+    }
+    public void Select(int i)
+    {
+        index = i;
     }
 }

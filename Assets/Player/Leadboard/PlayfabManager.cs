@@ -13,6 +13,7 @@ public class PlayfabManager : MonoBehaviour
     public bool createNewId = false;
 
     public string displayName;
+    public string leaderboardName;
 
     // Start is called before the first frame update
     void Start()
@@ -106,7 +107,7 @@ public class PlayfabManager : MonoBehaviour
             {
                 new StatisticUpdate
                 {
-                    StatisticName = "Highscore",
+                    StatisticName = leaderboardName,
                     Value = score
                 }
             }
@@ -123,7 +124,7 @@ public class PlayfabManager : MonoBehaviour
     {
         var request = new GetLeaderboardRequest
         {
-            StatisticName = "Highscore",
+            StatisticName = leaderboardName,
             StartPosition = 0,
             MaxResultsCount = 25
         };

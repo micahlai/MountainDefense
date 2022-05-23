@@ -18,16 +18,51 @@ public class turnCamera : MonoBehaviour
     public float scale;
     private float mousePos;
 
+    //mobile input
+    private float cameraStartPos;
+    [HideInInspector]public bool movingCamera;
+    public Touch cameraTouch;
+
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         cart.m_Position = cartPos;
+        movingCamera = false;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
+        //mobile input
+        if(Input.touchCount > 0)
+        {
+            cameraTouch = Input.touches[Input.touches.Length - 1];
+            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(cameraTouch.position);
+
+            if(cameraTouch.phase == TouchPhase.Began)
+            {
+                cameraStartPos = cartPos;
+
+                Ray ray = cam.ScreenPointToRay(cameraTouch.position);
+                RaycastHit hit;
+
+                if (!Physics.Raycast(ray, out hit))
+                {
+                    movingCamera = true;
+                }
+            }
+            if(cameraTouch.phase == TouchPhase.Moved && movingCamera)
+            {
+                cartPos += -cameraTouch.deltaPosition.x * 0.0007f;
+                
+            }
+            if(cameraTouch.phase == TouchPhase.Ended || cameraTouch.phase == TouchPhase.Canceled)
+            {
+                movingCamera = false;
+            }
+        }
+
         if (cartPos > 1)
         {
             cartPos = 0;
@@ -38,33 +73,36 @@ public class turnCamera : MonoBehaviour
         }
         cart.m_Position = cartPos;
 
-        mousePos = (Input.mousePosition.x / Screen.width);
+        if (!FindObjectOfType<cameraSelect>().mobileInput)
+        {
+            mousePos = (Input.mousePosition.x / Screen.width);
 
-        if (mousePos > 0.98 || Input.GetKey(KeyCode.D))
-        {
-            mousePos = 1f;
-            cartPos += mouseDragMultiplier * Time.deltaTime;
-        }
-        if (mousePos < 0.02 || Input.GetKey(KeyCode.A))
-        {
-            mousePos = 0f;
-            cartPos -= mouseDragMultiplier * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.Q))
-        {
-            SmoothCameraOnCircle(0);
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            SmoothCameraOnCircle(1);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            SmoothCameraOnCircle(2);
-        }
-        if (Input.GetKey(KeyCode.R))
-        {
-            SmoothCameraOnCircle(3);
+            if (mousePos > 0.98 || Input.GetKey(KeyCode.D))
+            {
+                mousePos = 1f;
+                cartPos += mouseDragMultiplier * Time.deltaTime;
+            }
+            if (mousePos < 0.02 || Input.GetKey(KeyCode.A))
+            {
+                mousePos = 0f;
+                cartPos -= mouseDragMultiplier * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                SmoothCameraOnCircle(0);
+            }
+            if (Input.GetKey(KeyCode.W))
+            {
+                SmoothCameraOnCircle(1);
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                SmoothCameraOnCircle(2);
+            }
+            if (Input.GetKey(KeyCode.R))
+            {
+                SmoothCameraOnCircle(3);
+            }
         }
         
 

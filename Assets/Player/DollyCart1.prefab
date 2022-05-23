@@ -285,8 +285,8 @@ MonoBehaviour:
   thunder: {fileID: 0}
   rain: {fileID: 0}
   canPlace: 1
-  rockPreview: {fileID: 0}
   treePreview: {fileID: 1144854695}
+  mobileInput: 1
 --- !u!114 &6537041723081640216
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,8 @@
 ﻿
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Linq;
 
 public class cameraSelect : MonoBehaviour
 {
@@ -16,8 +19,12 @@ public class cameraSelect : MonoBehaviour
     
     public GameObject treePreview;
 
+    public bool mobileInput = false;
+    bool startedWithRay;
+
     void Start()
     {
+        startedWithRay = false;
         cam = Camera.main;
         for (int i = 0; i < usage.Length; i++)
         {
@@ -47,7 +54,7 @@ public class cameraSelect : MonoBehaviour
             Ray rayPrev = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitPrev;
             
-            if (selection.index == 1)
+            if (selection.index == 1 && (!mobileInput || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)))
             {
                 if (Physics.Raycast(rayPrev, out hitPrev) && (hitPrev.transform.tag == "Level" || hitPrev.transform.tag == "Enemy"))
                 {
@@ -78,61 +85,87 @@ public class cameraSelect : MonoBehaviour
         {
             treePreview.SetActive(false);
         }
-        
 
-        
-        
-
-
-        if (Input.GetMouseButtonDown(0) && canPlace)
+        if (!mobileInput)
         {
-            if (selection.index == 0 || selection.index == 1)
+            if (Input.GetMouseButtonDown(0) && canPlace && !EventSystem.current.IsPointerOverGameObject())
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (selection.index == 0)
+                placeSelection(cam.ScreenPointToRay(Input.mousePosition));
+            }
+        }
+        else
+        {
+            if (Input.touchCount > 0 && !EventSystem.current.currentSelectedGameObject)
+            {
+                Touch touch = Input.touches[Input.touches.Length - 1];
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        if (usage[selection.index] >= cooldowns[selection.index])
-                        {
-                            Instantiate(objects[selection.index], hit.point + offset[selection.index], Quaternion.identity);
-                            Debug.DrawLine(transform.position, hit.point, Color.red);
-                            usage[selection.index] = 0;
-                        }
-                    }
+                    Ray ray = cam.ScreenPointToRay(touch.position);
+                    RaycastHit hit;
+
+                    startedWithRay = Physics.Raycast(ray, out hit);
                 }
-                else if (selection.index == 1)
+                    
+                if (touch.phase == TouchPhase.Ended)
                 {
-                    if (Physics.Raycast(ray, out hit) && (hit.transform.tag == "Level" || hit.transform.tag == "Enemy"))
+                    if (canPlace && startedWithRay)
                     {
-                        if (usage[selection.index] >= cooldowns[selection.index])
-                        {
-                            GameObject g = Instantiate(objects[selection.index], hit.point + offset[selection.index], Quaternion.identity);
-                            if(g.GetComponent<Tree>() != null)
-                            {
-                                g.GetComponent<Tree>().point = hit.point;
-                            }
-                            Debug.DrawLine(transform.position, hit.point, Color.red);
-                            usage[selection.index] = 0;
-                        }
+                        placeSelection(cam.ScreenPointToRay(touch.position));
                     }
                 }
             }
-            else if ((selection.index == 2 || selection.index == 3) && usage[selection.index] >= cooldowns[selection.index])
-            {
-                if (selection.index == 2)
-                {
-                    rain.toggleParticle(true);
-                    usage[2] = 0;
-                }
-                if (selection.index == 3)
-                {
-                    thunder.toggleParticle(true);
-                    usage[3] = 0;
-                    
+        }
+    }
 
+    void placeSelection(Ray r)
+    {
+        if (selection.index == 0 || selection.index == 1)
+        {
+            Ray ray = r;
+            RaycastHit hit;
+            if (selection.index == 0)
+            {
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (usage[selection.index] >= cooldowns[selection.index])
+                    {
+                        Instantiate(objects[selection.index], hit.point + offset[selection.index], Quaternion.identity);
+                        Debug.DrawLine(transform.position, hit.point, Color.red);
+                        usage[selection.index] = 0;
+                    }
                 }
+            }
+            else if (selection.index == 1)
+            {
+                if (Physics.Raycast(ray, out hit) && (hit.transform.tag == "Level" || hit.transform.tag == "Enemy"))
+                {
+                    if (usage[selection.index] >= cooldowns[selection.index])
+                    {
+                        GameObject g = Instantiate(objects[selection.index], hit.point + offset[selection.index], Quaternion.identity);
+                        if (g.GetComponent<Tree>() != null)
+                        {
+                            g.GetComponent<Tree>().point = hit.point;
+                        }
+                        Debug.DrawLine(transform.position, hit.point, Color.red);
+                        usage[selection.index] = 0;
+                    }
+                }
+            }
+        }
+        else if ((selection.index == 2 || selection.index == 3) && usage[selection.index] >= cooldowns[selection.index])
+        {
+            if (selection.index == 2)
+            {
+                rain.toggleParticle(true);
+                usage[2] = 0;
+            }
+            if (selection.index == 3)
+            {
+                thunder.toggleParticle(true);
+                Handheld.Vibrate();
+                usage[3] = 0;
+
+
             }
         }
     }

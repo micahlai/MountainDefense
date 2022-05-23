@@ -9,6 +9,8 @@ public class LeaderboardController : MonoBehaviour
 
     public static LeaderboardController main;
 
+
+
     private void Awake()
     {
         manager = FindObjectOfType<PlayfabManager>();

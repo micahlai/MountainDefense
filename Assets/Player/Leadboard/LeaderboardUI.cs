@@ -18,6 +18,8 @@ public class LeaderboardUI : MonoBehaviour
     public Text errorText;
 
     public Image noConnection;
+
+    TouchScreenKeyboard mobileKeyboard;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +27,28 @@ public class LeaderboardUI : MonoBehaviour
         nameEnterPanel.SetActive(false);
     }
 
+    public void OpenMobileKeyboard()
+    {
+        mobileKeyboard = TouchScreenKeyboard.Open("My Name", TouchScreenKeyboardType.Default, false, false, false, true, "My Name", 20);
+        print(TouchScreenKeyboard.isSupported);
+        
+        print(TouchScreenKeyboard.visible.ToString() + ", " + TouchScreenKeyboard.area.ToString());
+
+    }
+
     // Update is called once per frame
     void Update()
     {
         ContentParent.sizeDelta = new Vector2(ContentParent.sizeDelta.x, leaderboardPositions.ToArray().Length * rowHeight);
+        
+        if(TouchScreenKeyboard.visible == false && mobileKeyboard != null)
+        {
+            nameEnter.text = mobileKeyboard.text;
+            if (mobileKeyboard.done)
+            {
+                mobileKeyboard = null;
+            }
+        }
     }
     public void RefreshUI()
     {
